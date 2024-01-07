@@ -1,4 +1,4 @@
-## This description has been modified and updated for Ubuntu 22.04.  
+## This description has been translated and updated for Ubuntu 22.04.  
 
 The original description is in Chinese and is located here https://github.com/Lienol/openwrt  
 
