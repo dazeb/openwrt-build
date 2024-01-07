@@ -1,3 +1,7 @@
+## This description has been modified and updated for Ubuntu 22.04.  
+
+The original description is in Chinese and is located here https://github.com/Lienol/openwrt  
+
 Compiling OpenWRT firmware on Ubuntu 22.04 involves several steps. Here's how you can do it:
 
 1. **Update your Ubuntu system**: Before starting, ensure your Ubuntu system is updated. You can do this by running the following command:
