@@ -2,30 +2,28 @@
 
 The original description is in Chinese and is located here https://github.com/Lienol/openwrt  
 
-Compiling OpenWRT firmware on Ubuntu 22.04 involves several steps. Here's how you can do it:
+Sure, let's incorporate the new information into the process. Here's the updated process:
 
-1. **Update your Ubuntu system**: Before starting, ensure your Ubuntu system is updated. You can do this by running the following command:
-
-```bash
-sudo apt-get update
-```
-
-2. **Install necessary packages**: The next step is to install the necessary packages. Some packages may have different names in Ubuntu 22.04 compared to older versions. Here's the updated list of commands:
+1. **Update your Ubuntu system**: Ensure your Ubuntu system is updated by running the following command:
 
 ```bash
-sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
+sudo apt update
 ```
 
-Note: Python 3.5 and Python 2.7 are not available in Ubuntu 22.04. You might need to adjust your environment accordingly if your build process relies on these specific versions.
+2. **Install necessary packages**: Install the necessary packages. Note that Python 2.7 is no longer needed as Python 3 is installed by default in Ubuntu 22.04. Here's the updated list of commands:
 
-3. **Clone the OpenWRT repository**: Next, clone the OpenWRT repository. As of the time of writing, the latest version is 22.03, so we'll use that:
+```bash
+sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
+```
+
+3. **Clone the OpenWRT repository**: Clone the OpenWRT repository. As of the time of writing, the latest version is 22.03, so we'll use that:
 
 ```bash
 git clone -b 22.03 --single-branch https://github.com/Lienol/openwrt openwrt
 cd openwrt
 ```
 
-4. **Prepare the feeds**: Now, prepare the feeds. These are the package repositories that OpenWRT uses to fetch its software components:
+4. **Prepare the feeds**: Prepare the feeds. These are the package repositories that OpenWRT uses to fetch its software components:
 
 ```bash
 ./scripts/feeds clean
@@ -49,7 +47,7 @@ make -j1 V=s
 
 After the build completes, the output will be located in the `openwrt/bin/targets` directory.
 
-----------------------------------------------------------------------
+Remember, this is a general guide and your specific needs might require additional steps or modifications. Always refer to the official OpenWRT documentation for the most accurate and up-to-date information.
 
 ![OpenWrt logo](include/logo.png)
 
