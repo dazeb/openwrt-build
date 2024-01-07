@@ -1,4 +1,6 @@
-## This description has been translated and updated for Ubuntu 22.04.  
+## This description has been translated and updated for Ubuntu 22.04. 
+
+Updated using info here https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem#debianubuntu
 
 The original description is in Chinese and is located here https://github.com/Lienol/openwrt  
 
