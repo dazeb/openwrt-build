@@ -1,31 +1,51 @@
-编译命令如下:
--
-1. 首先装好 Ubuntu 64bit，推荐  Ubuntu  18 LTS x64
+Compiling OpenWRT firmware on Ubuntu 22.04 involves several steps. Here's how you can do it:
 
-2. 命令行输入 `sudo apt-get update` ，然后输入
-`
-sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettext git libncurses5-dev libz-dev patch python3.5 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
-`
+1. **Update your Ubuntu system**: Before starting, ensure your Ubuntu system is updated. You can do this by running the following command:
 
-3. `git clone -b 22.03 --single-branch https://github.com/Lienol/openwrt openwrt` 命令下载好源代码，然后 `cd openwrt` 进入目录
+```bash
+sudo apt-get update
+```
 
-4. ```bash
-   ./scripts/feeds clean
-   ./scripts/feeds update -a
-   ./scripts/feeds install -a
-   make menuconfig
-   ```
+2. **Install necessary packages**: The next step is to install the necessary packages. Some packages may have different names in Ubuntu 22.04 compared to older versions. Here's the updated list of commands:
 
-5. `make -j8 download V=s` 下载dl库（国内请尽量全局科学上网）
+```bash
+sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
+```
 
+Note: Python 3.5 and Python 2.7 are not available in Ubuntu 22.04. You might need to adjust your environment accordingly if your build process relies on these specific versions.
 
-6. 输入 `make -j1 V=s` （-j1 后面是线程数。第一次编译推荐用单线程）即可开始编译你要的固件了。
+3. **Clone the OpenWRT repository**: Next, clone the OpenWRT repository. As of the time of writing, the latest version is 22.03, so we'll use that:
 
-6. 编译完成后输出路径：openwrt/bin/targets
+```bash
+git clone -b 22.03 --single-branch https://github.com/Lienol/openwrt openwrt
+cd openwrt
+```
 
-你可以自由使用，但源码编译二次发布请注明我的 GitHub 仓库链接。谢谢合作！
- 
- -----------------------------------------------------
+4. **Prepare the feeds**: Now, prepare the feeds. These are the package repositories that OpenWRT uses to fetch its software components:
+
+```bash
+./scripts/feeds clean
+./scripts/feeds update -a
+./scripts/feeds install -a
+```
+
+5. **Configure the build**: Run `make menuconfig` to configure your build. This will allow you to choose the target system, the toolchain, and the firmware packages you want to include.
+
+6. **Download dependencies**: Before you can start the build, you need to download the dependencies. This can take a while depending on your internet connection:
+
+```bash
+make -j8 download V=s
+```
+
+7. **Start the build**: Finally, start the build. It's recommended to start with a single thread (`-j1`) for the first compilation to avoid potential issues:
+
+```bash
+make -j1 V=s
+```
+
+After the build completes, the output will be located in the `openwrt/bin/targets` directory.
+
+----------------------------------------------------------------------
 
 ![OpenWrt logo](include/logo.png)
 
