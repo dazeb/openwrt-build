@@ -147,11 +147,15 @@ define Package/base-files/install
 	if [ -d $(GENERIC_PLATFORM_DIR)/base-files/. ]; then \
 		$(CP) $(GENERIC_PLATFORM_DIR)/base-files/* $(1)/; \
 	fi
-	if [ -d $(PLATFORM_DIR)/base-files/. ]; then \
+	if [ -d $(PLATFORM_DIR)/base-files-$(KERNEL_PATCHVER)/. ]; then \
+		$(CP) $(PLATFORM_DIR)/base-files-$(KERNEL_PATCHVER)/* $(1)/; \
+	elif [ -d $(PLATFORM_DIR)/base-files/. ]; then \
 		$(CP) $(PLATFORM_DIR)/base-files/* $(1)/; \
 	fi
 	$(if $(filter-out $(PLATFORM_DIR),$(PLATFORM_SUBDIR)), \
-		if [ -d $(PLATFORM_SUBDIR)/base-files/. ]; then \
+		if [ -d $(PLATFORM_SUBDIR)/base-files-$(KERNEL_PATCHVER)/. ]; then \
+			$(CP) $(PLATFORM_SUBDIR)/base-files-$(KERNEL_PATCHVER)/* $(1)/; \
+		elif [ -d $(PLATFORM_SUBDIR)/base-files/. ]; then \
 			$(CP) $(PLATFORM_SUBDIR)/base-files/* $(1)/; \
 		fi; \
 	)

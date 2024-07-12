@@ -154,7 +154,7 @@ define BuildKernel
   download: $(if $(LINUX_SITE),$(DL_DIR)/$(LINUX_SOURCE))
   prepare: $(STAMP_PREPARED)
   compile: $(LINUX_DIR)/.modules
-	$(MAKE) -C image compile TARGET_BUILD=
+	$(MAKE) -C image$(if $(wildcard $(PLATFORM_DIR)/image-$(KERNEL_PATCHVER)),-$(KERNEL_PATCHVER)) compile TARGET_BUILD=
 
   oldconfig menuconfig nconfig xconfig: $(STAMP_PREPARED) $(STAMP_CHECKED) FORCE
 	rm -f $(LINUX_DIR)/.config.prev
@@ -171,13 +171,13 @@ define BuildKernel
 	$(call LINUX_RECONF_DIFF,$(LINUX_DIR)/.config) > $(LINUX_RECONFIG_TARGET)
 
   install: $(LINUX_DIR)/.image
-	+$(MAKE) -C image compile install TARGET_BUILD=
+	+$(MAKE) -C image$(if $(wildcard $(PLATFORM_DIR)/image-$(KERNEL_PATCHVER)),-$(KERNEL_PATCHVER)) compile install TARGET_BUILD=
 
   clean: FORCE
 	rm -rf $(KERNEL_BUILD_DIR)
 
   image-prereq:
-	@+$(NO_TRACE_MAKE) -s -C image prereq TARGET_BUILD=
+	@+$(NO_TRACE_MAKE) -s -C image$(if $(wildcard $(PLATFORM_DIR)/image-$(KERNEL_PATCHVER)),-$(KERNEL_PATCHVER)) prereq TARGET_BUILD=
 
   prereq: image-prereq
 
