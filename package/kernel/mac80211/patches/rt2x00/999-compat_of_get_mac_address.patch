@@ -1,0 +1,17 @@
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -996,7 +996,14 @@ void rt2x00lib_set_mac_address(struct rt
+ 	if (pdata && pdata->mac_address)
+ 		ether_addr_copy(eeprom_mac_addr, pdata->mac_address);
+ 
++#if LINUX_VERSION_IS_LESS(5,10,0)
++	const char *mac;
++	mac = of_get_mac_address(rt2x00dev->dev->of_node);
++	if (mac)
++		ether_addr_copy(eeprom_mac_addr, mac);
++#else
+ 	of_get_mac_address(rt2x00dev->dev->of_node, eeprom_mac_addr);
++#endif
+ 
+ 	if (!is_valid_ether_addr(eeprom_mac_addr)) {
+ 		eth_random_addr(eeprom_mac_addr);

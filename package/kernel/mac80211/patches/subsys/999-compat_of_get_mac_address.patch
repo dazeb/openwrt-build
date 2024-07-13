@@ -1,0 +1,17 @@
+--- a/drivers/net/wireless/mediatek/mt76/eeprom.c
++++ b/drivers/net/wireless/mediatek/mt76/eeprom.c
+@@ -92,7 +92,14 @@ mt76_eeprom_override(struct mt76_phy *ph
+ 	struct mt76_dev *dev = phy->dev;
+ 	struct device_node *np = dev->dev->of_node;
+ 
++#if LINUX_VERSION_IS_LESS(5,10,0)
++	const u8 *mac;
++	mac = of_get_mac_address(np);
++	if (mac)
++		ether_addr_copy(phy->macaddr, mac);
++#else
+ 	of_get_mac_address(np, phy->macaddr);
++#endif
+ 
+ 	if (!is_valid_ether_addr(phy->macaddr)) {
+ 		eth_random_addr(phy->macaddr);
