@@ -27,5 +27,9 @@ DEFAULT_PACKAGES += nvram \
 	kmod-gpio-button-hotplug \
 	kmod-leds-gpio \
 	autocore-arm
+	
+ifeq ($(KERNEL_PATCHVER),5.4)
+DEFAULT_PACKAGES += swconfig
+endif
 
 $(eval $(call BuildTarget))
